@@ -5,7 +5,7 @@ export default (props) => {
     const { title, points } = props;
     const skillPointsJSX = [...Array(10).keys()].map((a) => (
         <li
-            className = { a > points ? 'inactive' : null }
+            className = { a >= points ? 'inactive' : null }
             key = { a }
         />
     ));
