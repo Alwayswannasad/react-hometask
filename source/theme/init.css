@@ -1,0 +1,16 @@
+@import 'reset-css';
+@import './palette';
+@import './globals';
+
+/* Components */
+@import './components/header';
+@import './components/content';
+@import './components/skillset';
+@import './components/skill';
+@import './components/sectionHeading';
+@import './components/workplace';
+@import './components/contacts';
+@import './components/contact';
+@import './components/education';
+@import './components/eduspace';
+
