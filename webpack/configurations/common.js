@@ -1,7 +1,3 @@
-// Core
-import getRepositoryName from 'git-repo-name';
-import chalk from 'chalk';
-
 // Paths
 import { source, build } from '../paths';
 
@@ -11,6 +7,7 @@ import {
     loadFonts,
     loadImages,
     setupHtml,
+    setupFavicon,
     setupContextReplacement,
     setupStyledReporting,
     initializeEnvVariables
@@ -21,22 +18,7 @@ import merge from 'webpack-merge';
 
 export const generateCommonConfiguration = () => {
     const BUILD_ENV = process.env.BUILD_ENV;
-    const IS_DEPLOYING_TO_GITHUB_PAGES = process.env.DEPLOY_TARGET === 'github-pages';
-    let REPOSITORY_NAME = '';
-
-    try {
-        REPOSITORY_NAME = getRepositoryName.sync();
-    } catch (error) {
-        console.log(
-            chalk.whiteBright.bgRed.bold(`
-Твой локальный репозиторий не привязан к удалённому репозиторию, или локальный репозиторий отсутствует.
-Для успешного деплоя на Github Pages:
-    1. Если локального репозитория для этого проект нет — создай его;
-    2. Создай удалённый репозиторий на Github;
-    3. Привяжи локальный репозиторий этого проекта к удалённому репозиторию на Github.
-`)
-        );
-    }
+    const REPOSITORY_NAME = process.env.REPOSITORY_NAME;
 
     return merge(
         // Loaders
@@ -47,6 +29,7 @@ export const generateCommonConfiguration = () => {
         // Plugins
         setupHtml(),
         setupContextReplacement(),
+        setupFavicon(),
         setupStyledReporting(),
         initializeEnvVariables({
             __ENV__:  JSON.stringify(BUILD_ENV),
@@ -59,15 +42,23 @@ export const generateCommonConfiguration = () => {
             },
             output: {
                 path:       build,
-                publicPath: IS_DEPLOYING_TO_GITHUB_PAGES ? `/${REPOSITORY_NAME}/` : '/',
+                publicPath: REPOSITORY_NAME ? `/${REPOSITORY_NAME}/` : '/',
             },
             resolve: {
-                extensions: ['.mjs', '.js', '.json', '.css', '.m.css', '.png', '.jpg'],
-                modules:    [source, 'node_modules'],
+                extensions: [
+                    '.mjs',
+                    '.js',
+                    '.json',
+                    '.css',
+                    '.m.css',
+                    '.png',
+                    '.jpg'
+                ],
+                modules: [source, 'node_modules'],
             },
             optimization: {
                 nodeEnv: process.env.NODE_ENV,
             },
-        }
+        },
     );
 };

@@ -5,7 +5,6 @@ import { generateCommonConfiguration } from './common';
 import {
     loadProductionCss,
     setupBuildAnalysis,
-    setupFavicon,
     cleanBuildDirectory
 } from '../modules';
 
@@ -19,7 +18,6 @@ export const generateProductionConfiguration = () =>
 
         // Loaders
         loadProductionCss(),
-        setupFavicon(),
 
         // Plugins
         cleanBuildDirectory(),
@@ -29,9 +27,6 @@ export const generateProductionConfiguration = () =>
             output: {
                 filename: 'js/[name].[chunkhash:5].js',
             },
-            devtool:      'source-map',
-            optimization: {
-                minimize: false,
-            },
+            devtool: 'source-map',
         },
     );

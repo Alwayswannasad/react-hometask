@@ -1,5 +1,5 @@
 // Paths
-import { source, statics } from '../paths';
+import { source } from '../paths';
 
 // Plugins
 import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
@@ -43,14 +43,7 @@ export const loadImages = () => ({
 });
 
 export const setupFavicon = () => ({
-    plugins: [
-        new FaviconsWebpackPlugin({
-            logo:            './static/favicon/favicon.svg',
-            prefix:          'images/favicon/icon-[hash]',
-            statsFilename:   'iconstats-[hash].json',
-            persistentCache: true,
-        })
-    ],
+    plugins: [new FaviconsWebpackPlugin('./static/icons/favicon.png')],
 });
 
 export const setupHtml = () => ({
@@ -58,12 +51,12 @@ export const setupHtml = () => ({
         new HtmlWebpackPlugin({
             inject:   false,
             template: HtmlWebpackTemplate,
-            title:    'Интенсив по Redux',
-            favicon:  `${statics}/favicon/Lectrum-favicon-512x512.png`,
+            title:    'React trial hometask',
             meta:     [
                 {
                     name:    'viewport',
-                    content: 'user-scalable=no, width=device-width, initial-scale=1',
+                    content:
+                        'user-scalable=no, width=device-width, initial-scale=1',
                 }
             ],
             appMountIds: ['app', 'spinner'],
