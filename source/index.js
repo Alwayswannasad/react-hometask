@@ -1,10 +1,11 @@
 // Core
 import React from 'react';
-import ReactDOM from 'react-dom';
-// Components
-import App from './containers/App/';
-// Theme
+import { render } from 'react-dom';
+
+// Instruments
 import './theme/init';
 
+// Intro
+import Gallery from './basic-redux';
 
-ReactDOM.render(<App />, document.getElementById('app'));
+render(<Gallery />, document.getElementById('app'));
