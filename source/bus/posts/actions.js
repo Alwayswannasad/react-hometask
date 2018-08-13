@@ -2,6 +2,7 @@
 import { types } from "./types";
 
 export const postActions = {
+    // Sync
     fillPosts: (posts) => {
         return {
             type:    types.FILL_POSTS,
@@ -14,6 +15,19 @@ export const postActions = {
             payload: post,
         };
     },
+    clearPosts: () => {
+        return {
+            type: types.CLEAR_POSTS,
+        };
+    },
+    removePost: (postId) => {
+        return {
+            type:    types.REMOVE_POST,
+            payload: postId,
+        };
+    },
+
+    //Async
     fetchPostsAsync: () => {
         return {
             type: types.FETCH_POST_ASYNC,
@@ -23,6 +37,12 @@ export const postActions = {
         return {
             type:    types.CREATE_POST_ASYNC,
             payload: comment,
+        };
+    },
+    removePostAsync: (postId) => {
+        return {
+            type:    types.REMOVE_POST_ASYNC,
+            payload: postId,
         };
     },
 };
